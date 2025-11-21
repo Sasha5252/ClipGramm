@@ -13,50 +13,54 @@
         
         body { 
             font-family: Arial, sans-serif; 
-            background: #1a1a1a; 
+            background: #000; 
             color: white; 
-            height: 100vh; 
+            height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 10px;
         }
         
         .video-player {
             width: 100%;
-            max-width: 800px;
+            height: 85vh;
+            max-width: 1200px;
             background: #000;
-            border-radius: 15px;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
         }
         
         .video-container {
             width: 100%;
+            height: calc(100% - 100px);
             position: relative;
         }
         
         #main-video {
             width: 100%;
-            height: auto;
-            display: block;
+            height: 100%;
+            object-fit: contain;
             background: #000;
         }
         
         .video-info {
-            padding: 15px 20px;
-            border-bottom: 1px solid #333;
+            padding: 20px 30px;
+            background: #1a1a1a;
+            border-top: 2px solid #333;
         }
         
         .username {
             font-weight: bold;
-            font-size: 16px;
-            margin-bottom: 5px;
+            font-size: 20px;
+            margin-bottom: 8px;
+            color: #fff;
         }
         
         .description {
-            font-size: 14px;
+            font-size: 16px;
             color: #ccc;
             line-height: 1.4;
         }
@@ -65,81 +69,145 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px;
+            padding: 25px 40px;
             background: #1a1a1a;
+            height: 100px;
         }
         
         .nav-btn {
-            background: #333;
+            background: #444;
             border: none;
             color: white;
-            width: 50px;
-            height: 50px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
-            font-size: 20px;
+            font-size: 28px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: background 0.3s;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
         
         .nav-btn:hover {
             background: #555;
+            transform: scale(1.05);
         }
         
         .nav-btn:disabled {
             background: #222;
             color: #666;
             cursor: not-allowed;
+            transform: none;
+        }
+        
+        .like-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
         }
         
         .like-btn {
             background: transparent;
-            border: 2px solid #fff;
+            border: 3px solid #fff;
             color: white;
-            width: 60px;
-            height: 60px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
-            font-size: 24px;
+            font-size: 32px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+        }
+        
+        .like-btn:hover {
+            transform: scale(1.1);
         }
         
         .like-btn.liked {
             background: #ff4757;
             border-color: #ff4757;
             color: white;
+            transform: scale(1.1);
         }
         
         .like-count {
-            margin-top: 5px;
-            font-size: 12px;
-            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
         }
         
         .status {
             margin-top: 20px;
-            padding: 10px 20px;
+            padding: 12px 25px;
             background: #007acc;
             color: white;
-            border-radius: 10px;
-            font-size: 14px;
+            border-radius: 12px;
+            font-size: 16px;
             text-align: center;
+            max-width: 1200px;
+            width: 100%;
         }
         
         .video-counter {
             position: absolute;
-            top: 15px;
-            right: 15px;
-            background: rgba(0,0,0,0.7);
+            top: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.8);
             color: white;
-            padding: 5px 10px;
-            border-radius: 15px;
-            font-size: 12px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: bold;
+            backdrop-filter: blur(10px);
+        }
+        
+        .video-title {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: bold;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Увеличиваем контролы видео */
+        #main-video::-webkit-media-controls {
+            transform: scale(1.3);
+        }
+
+        /* Для мобильных устройств */
+        @media (max-width: 768px) {
+            .video-player {
+                height: 80vh;
+                border-radius: 15px;
+            }
+            
+            .controls {
+                padding: 20px;
+                height: 90px;
+            }
+            
+            .nav-btn {
+                width: 60px;
+                height: 60px;
+                font-size: 24px;
+            }
+            
+            .like-btn {
+                width: 70px;
+                height: 70px;
+                font-size: 28px;
+            }
         }
     </style>
 </head>
@@ -149,18 +217,19 @@
             <video id="main-video" controls playsinline>
                 Ваш браузер не поддерживает видео.
             </video>
-            <div class="video-counter" id="counter">1/3</div>
+            <div class="video-counter" id="counter">1/2</div>
+            <div class="video-title" id="video-title">ClipGram Player</div>
         </div>
         
         <div class="video-info">
             <div class="username" id="username">@clipgram</div>
-            <div class="description" id="description">Добро пожаловать в ClipGram!</div>
+            <div class="description" id="description">Добро пожаловать в увеличенный видеоплеер ClipGram!</div>
         </div>
         
         <div class="controls">
             <button class="nav-btn" id="prev-btn" onclick="prevVideo()">◀</button>
             
-            <div style="display: flex; flex-direction: column; align-items: center;">
+            <div class="like-section">
                 <button class="like-btn" id="like-btn" onclick="toggleLike()">
                     <span id="like-icon">♡</span>
                 </button>
@@ -171,28 +240,22 @@
         </div>
     </div>
     
-    <div class="status" id="status">Загрузка...</div>
+    <div class="status" id="status">Загрузка увеличенного видеоплеера...</div>
 
     <script>
-        // ВСТАВЬ СЮДА СВОИ ВИДЕО
+        // ВИДЕО ДЛЯ ТЕСТА
         const videos = [
             {
-                url: "https://cdn.plyr.io/static/demo/Big_Buck_Bunny.mp4",
+                url: "https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_1MB.mp4",
                 username: "@clipgram",
-                description: "Добро пожаловать в ClipGram! Тестовое видео 1",
+                description: "Увеличенный видеоплеер ClipGram - тестовое видео 1",
                 likes: 5
             },
             {
                 url: "https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_1MB.mp4",
                 username: "@demo",
-                description: "Короткое демо видео для тестирования",
+                description: "Увеличенный видеоплеер ClipGram - тестовое видео 2",
                 likes: 2
-            },
-            {
-                url: "https://assets.codepen.io/3364143/710b5aad-f1b9-4b0a-94ee-0f3e4e12903d.mp4",
-                username: "@test",
-                description: "Еще одно тестовое видео",
-                likes: 8
             }
         ];
 
@@ -230,9 +293,9 @@
             checkLikeStatus(videoId);
             
             video.onloadeddata = function() {
-                updateStatus(`✅ Видео "${videoData.description}" загружено`);
+                updateStatus(`✅ Видео "${videoData.description.substring(0, 30)}..." загружено`);
                 video.play().catch(e => {
-                    updateStatus("⏸ Нажми play для запуска видео");
+                    updateStatus("⏸ Нажми PLAY для запуска видео");
                 });
             };
             
@@ -302,12 +365,14 @@
 
         // Запуск
         window.onload = function() {
-            updateStatus("🚀 ClipGram запущен");
+            updateStatus("🚀 Увеличенный ClipGram запущен");
             loadVideo(currentVideoIndex);
             
             if (typeof Telegram !== 'undefined') {
                 Telegram.WebApp.ready();
                 Telegram.WebApp.expand();
+                Telegram.WebApp.setHeaderColor('#000000');
+                Telegram.WebApp.setBackgroundColor('#000000');
             }
         };
     </script>
